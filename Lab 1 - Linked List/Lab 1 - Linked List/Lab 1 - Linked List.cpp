@@ -1,12 +1,13 @@
 // Linked List Lab.cpp : Defines the entry point for the console application.
 // Implementing a Linked List
 // Leon Scott: September 9, 2016
+// When i say "we" in the comments, I am referring to the compiler and I :) 
 
 // Requirements:
-// AddNode
+// CreateList (checkmate)
+// PrintList
 // InsertNode
 // DeleteNode
-// PrintList
 // SearchList
 // ReverseList
 
@@ -23,8 +24,8 @@ struct node {
 };
 
 
-// this function is responsible for creating a linked list using our (node) structure as a user defined data type we just built above
-node *AddNode() {
+// this function is responsible for creating a linked list using the (node) structure as a user defined data type that I built above
+node *CreateList() {
 
 	node *first, *newNode, *last;
 	/* I created three different pointer varaibles of the (node) type
@@ -35,12 +36,17 @@ node *AddNode() {
 	last: this node points to the last node
 
 	*/
+
 	int num; // this integer is will pass the user's input into the (new) created nodes
 
 	int i = 0; // this integer is just for interfacing stuff... moving on
-	cout << "Create a list of integers ending with 0: " << endl << endl << "Index " << i << ": "; // Im asking the user the enter a list of numbers that end with 0 so i know when to terminate the node creation process
 
-	cin >> num; // user enters integer
+
+		// Im asking the user the enter a list of numbers that end with 0 so i know when to terminate the node creation process
+		cout << endl << endl << "Type integer and press [ENTER] (dont use 0) to add your values to the list.\n\nWhen you're done, just enter 0: " << endl << endl << "Index " << i << ": "; 
+
+		// user enters integer
+		cin >> num; 
 
 	first = NULL; // its important that we initialize our (current) pointer to NULL so that we know when we are at the beginning of the list
 
@@ -83,9 +89,123 @@ node *AddNode() {
 
 	return first; // we return the first node in our list....
 }
+
+// this is my printing function.... I've changed the name of the Initial_Node that was passed to (first)... just trying to keep a level of consistency
+void PrintList(node *first) 
+{
+	int i = 0; // this is used for interfacing, nothing super special 
+
+	node *current; // lets make a node pointer called current.... we will print the value of this node as we progress through the list
+
+	current = first; // we initially point current to first.... so this will be the first node that is printed 
+
+
+	// OK LETS WORK SOME MAGIC 
+	 ////////////////////////
+	       ///////////
+		      ///
+
+	while (current != NULL) // So within this loop we will print the current value of our nodes until we hit 0 (which, if you remember, is our termination value we made in our CreateList() function above)
+	{
+		cout << "Index " << i << ": " << current->value << endl; // we print the current value of our node
+
+		current = current->link; // and then I point the current node to the next link within the node (in plain english, we are jumping to the next space in the list) 
+
+		i++; // increase index being printed.... hopefully this puts a smile on the user's face
+	}
+
+	return;
+}
+
+// main function is tasked with managing manaing interactions between the user and the functions the user may want to use
 int main()
 {
-	AddNode();
+	node *Initial_Node; // this node will be used to begin new processes
+
+	cout << "Hello Earthling! Lets make a list !!";
+
+	Initial_Node = CreateList(); // we point the node to our CreateList function that creates a list and returns our (first) node.... 
+								 // so in essense Initial_Node is pointing to (first) node
+
+	int user_options;
+
+options:
+	cout << endl << endl << "What would you like to do next? " << endl << endl;
+
+
+re_enter:
+
+		cout << "[1] Create a new list" << endl;
+		cout << "[2] Print your list" << endl;
+		/*cout << "[3] Insert value" << endl;
+		cout << "[4] Delete value" << endl;
+		cout << "[5] Search for value" << endl;
+		cout << "[6] Reverse List" << endl;
+		cout << "[7] Sort List" << endl;*/
+
+		cout << endl << "[OPTION]: ";
+
+			cin >> user_options;
+	
+			if (user_options == NULL)
+			{
+				cout << "sorry, thats not a valid entry. Just use integers" << endl << endl; 
+				goto re_enter;
+			}
+			else 
+			{
+				switch (user_options)
+				{
+					case 1: 
+					{
+						CreateList(); // this will just run the the CreateList function again
+
+						goto options;
+
+						break;
+					}
+
+					case 2:
+					{
+						cout << endl << endl << "Wala!" << endl; 
+
+						PrintList(Initial_Node); // this prints the list that we made... we pass the first node in our list to this function as a starting point for printing
+
+						goto options;
+
+						break;
+					}
+
+					/*case 3:
+					{
+						break;
+					}
+
+					case 4:
+					{
+						break;
+					}
+
+					case 5:
+					{
+						break;
+					}
+
+					case 6:
+					{
+						break;
+					}
+
+					case 7:
+					{
+						break;
+					}*/
+				}
+			}
+
+	
+	
+	 
 
 	char f;
 	cin >> f;
